@@ -27,6 +27,16 @@ const requireUser = t.middleware(async opts => {
 
 export const protectedProcedure = t.procedure.use(requireUser);
 
+export const advisorProcedure = t.procedure.use(
+  t.middleware(async opts => {
+    const { ctx, next } = opts;
+    if (!ctx.user || !["admin", "advisor"].includes(ctx.user.role)) {
+      throw new TRPCError({ code: "FORBIDDEN", message: "Maslahatchi huquqi talab qilinadi" });
+    }
+    return next({ ctx: { ...ctx, user: ctx.user } });
+  }),
+);
+
 export const adminProcedure = t.procedure.use(
   t.middleware(async opts => {
     const { ctx, next } = opts;

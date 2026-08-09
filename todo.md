@@ -8,18 +8,18 @@
 - [x] Loyihalar va tashabbuslarni qo‘shish hamda natijalarini ko‘rsatish
 - [x] Yutuqlarim sahifasi va sertifikat/diplom ma’lumotlari
 - [x] Choraklik refleksiya savollari va javoblarini saqlash
-- [ ] Dalillar va media fayllari uchun xavfsiz saqlash modeli
+- [x] Dalillar va media fayllari uchun xavfsiz saqlash modeli
 - [x] Shaxsiy dinamik dashboard va rivojlanish grafiklari
 - [x] Admin panelini oddiy foydalanuvchilardan yashirish
 - [x] Admin uchun foydalanuvchilar, faoliyatlar, loyihalar, refleksiya va dalillarni boshqarish
-- [ ] Maslahatchi roli va tasdiqlash/aniqlashtirish/rad etish jarayoni
+- [x] Maslahatchi roli va tasdiqlash/aniqlashtirish/rad etish jarayoni
 - [x] Sinflar bo‘yicha monitoring: faoliyat, soat, loyiha va o‘rtacha ball
 - [x] Ommaviy “kim birinchi” reytingini ko‘rsatmaslik; rivojlanish ehtiyojlari ko‘rinishini yaratish
 - [x] Saytga kirish va foydalanish bo‘yicha o‘zbekcha yo‘riqnoma sahifasini qo‘shish
 - [x] Asosiy admin emailini sozlash: azizovbahriddin20020504@gmail.com
 - [x] Mobil va desktop ko‘rinishlarini tekshirish
 - [x] Vitest testlarini yozish va ishga tushirish
-- [ ] Yakuniy checkpoint yaratish va foydalanuvchiga topshirish
+- [x] Yakuniy checkpoint yaratish va foydalanuvchiga topshirish
 
 ## Talablar tarixi
 
@@ -36,3 +36,22 @@
 - [x] Admin paneliga faoliyatlar, loyihalar, refleksiya va dalillarni ko‘rish/boshqarish bo‘limlarini qo‘shish
 - [x] Sinflar monitoringi uchun alohida dinamik monitoring bo‘limini yaratish
 - [x] Mobil viewportda UI ni tekshirish va kerakli responsive tuzatishlarni kiritish
+
+## Saqlashni kuchaytirish
+
+- [x] Dalillar uchun S3/storagePut asosidagi fayl yuklash, xavfsiz key/URL metadata va frontend file input oqimini qo‘shish
+- [ ] Yakuniy checkpoint URL-ni foydalanuvchiga yuborish
+- [ ] Evidence jadvaliga storage key maydonini qo‘shish, migratsiya qilish va upload natijasida key/url ni saqlash
+
+## GitHub ulanishi
+
+- [x] GitHub repository yo‘nalishini aniqlash: Manus kodini GitHub’ga yuborish yoki GitHub kodini Manus’ga olish
+- [x] GitHub ruxsati va repository ulanishini sozlash
+- [ ] Tanlangan yo‘nalishda kod sinxronligini tekshirish
+
+## Aniqlangan muammolar
+
+- [ ] server/routers.ts dagi uploadEvidence sintaksis xatosini tuzatish va dev serverni tiklash
+- [ ] GitHub repositoryni /home/ubuntu/ijtimoiy-portfolio loyihasiga amalda remote sifatida ulash
+- [ ] GitHub bilan haqiqiy fetch/push amalini bajarish va sinxronlikni tekshirish
+- [ ] GitHub repositorysi bilan Manus loyiha kodi o‘rtasidagi yakuniy farqlarni solishtirish

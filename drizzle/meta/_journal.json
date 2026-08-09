@@ -15,6 +15,13 @@
       "when": 1786304062518,
       "tag": "0001_peaceful_the_executioner",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1786304742395,
+      "tag": "0002_flat_ezekiel",
+      "breakpoints": true
     }
   ]
 }

@@ -4,8 +4,9 @@ import { z } from "zod";
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
+import { adminProcedure, advisorProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { getUserPortfolio, getProfile, listUsers, getDb, profiles, goals, activities, projects, achievements, reflections, evidence, users } from "./db";
+import { storagePut } from "./storage";
 
 const profileInput = z.object({ fullName: z.string().max(255).optional(), school: z.string().max(255).optional(), className: z.string().max(32).optional(), academicYear: z.string().max(32).optional(), advisor: z.string().max(255).optional(), interests: z.string().optional(), strengths: z.string().optional(), goalsSummary: z.string().optional() });
 const activityInput = z.object({ date: z.string(), eventName: z.string().min(1), organization: z.string().optional(), workDone: z.string().optional(), role: z.string().optional(), hours: z.number().min(0).max(1000) });
@@ -14,6 +15,7 @@ const projectInput = z.object({ title: z.string().min(1), role: z.string().optio
 const achievementInput = z.object({ category: z.string().optional(), title: z.string().min(1), date: z.string().optional(), eventName: z.string().optional(), result: z.string().optional(), evidenceUrl: z.string().url().optional().or(z.literal("")) });
 const reflectionInput = z.object({ quarter: z.string().min(1), benefit: z.string().optional(), challenge: z.string().optional(), skill: z.string().optional(), nextGoal: z.string().optional() });
 const evidenceInput = z.object({ title: z.string().min(1), type: z.string().optional(), url: z.string().url().optional().or(z.literal("")) });
+const evidenceUploadInput = z.object({ title: z.string().min(1), type: z.string().optional(), fileName: z.string().min(1).max(180), mimeType: z.string().min(1).max(120), data: z.string().min(1).max(14_000_000) });
 
 export const appRouter = router({
   system: systemRouter,
@@ -30,6 +32,21 @@ export const appRouter = router({
     createAchievement: protectedProcedure.input(achievementInput).mutation(async ({ ctx, input }) => { const db = await getDb(); if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" }); await db.insert(achievements).values({ userId: ctx.user.id, ...input }); return { success: true }; }),
     createReflection: protectedProcedure.input(reflectionInput).mutation(async ({ ctx, input }) => { const db = await getDb(); if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" }); await db.insert(reflections).values({ userId: ctx.user.id, ...input }); return { success: true }; }),
     createEvidence: protectedProcedure.input(evidenceInput).mutation(async ({ ctx, input }) => { const db = await getDb(); if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" }); await db.insert(evidence).values({ userId: ctx.user.id, ...input }); return { success: true }; }),
+    uploadEvidence: protectedProcedure.input(evidenceUploadInput).mutation(async ({ ctx, input }) => {
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+      const encoded = input.data.includes(",") ? input.data.split(",")[1] : input.data;
+      if (!encoded) throw new TRPCError({ code: "BAD_REQUEST", message: "Fayl ma'lumoti bo'sh" });
+      const buffer = Buffer.from(encoded, "base64");
+      const safeName = input.fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const stored = await storagePut(`evidence/${ctx.user.id}/${Date.now()}-${safeName}`, buffer, input.mimeType);
+      await db.insert(evidence).values({ userId: ctx.user.id, title: input.title, type: input.type, url: stored.url });
+      return { success: true, url: stored.url };
+    }),
+  }),
+  advisor: router({
+    activities: advisorProcedure.query(async () => { const db = await getDb(); if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" }); return db.select().from(activities); }),
+    updateActivityStatus: advisorProcedure.input(z.object({ activityId: z.number().int().positive(), status: z.enum(["pending", "approved", "needs_review", "rejected"]) })).mutation(async ({ input }) => { const db = await getDb(); if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" }); await db.update(activities).set({ status: input.status }).where(eq(activities.id, input.activityId)); return { success: true }; }),
   }),
   admin: router({
     users: adminProcedure.query(() => listUsers()),
