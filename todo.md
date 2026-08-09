@@ -47,11 +47,16 @@
 
 - [x] GitHub repository yo‘nalishini aniqlash: Manus kodini GitHub’ga yuborish yoki GitHub kodini Manus’ga olish
 - [x] GitHub ruxsati va repository ulanishini sozlash
-- [ ] Tanlangan yo‘nalishda kod sinxronligini tekshirish
+- [x] Tanlangan yo‘nalishda kod sinxronligini tekshirish
 
 ## Aniqlangan muammolar
 
-- [ ] server/routers.ts dagi uploadEvidence sintaksis xatosini tuzatish va dev serverni tiklash
-- [ ] GitHub repositoryni /home/ubuntu/ijtimoiy-portfolio loyihasiga amalda remote sifatida ulash
-- [ ] GitHub bilan haqiqiy fetch/push amalini bajarish va sinxronlikni tekshirish
-- [ ] GitHub repositorysi bilan Manus loyiha kodi o‘rtasidagi yakuniy farqlarni solishtirish
+- [x] server/routers.ts dagi uploadEvidence sintaksis xatosini tuzatish va dev serverni tiklash
+- [x] GitHub repositoryni /home/ubuntu/ijtimoiy-portfolio loyihasiga amalda remote sifatida ulash
+- [x] GitHub bilan haqiqiy fetch/push amalini bajarish va sinxronlikni tekshirish
+- [x] GitHub repositorysi bilan Manus loyiha kodi o‘rtasidagi yakuniy farqlarni solishtirish
+
+## Tekshiruv dalillari
+
+- [x] server/routers.ts tuzatilgandan keyin dev server holatini amalda tekshirish: qayta ishga tushirildi va Server running qaydi tasdiqlandi
+- [x] UploadEvidence tuzatishidan keyin runtime/build sog‘lomligini qayta tasdiqlash: TypeScript, testlar va dev server tekshirildi
