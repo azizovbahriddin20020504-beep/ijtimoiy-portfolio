@@ -41,7 +41,7 @@
 
 - [x] Dalillar uchun S3/storagePut asosidagi fayl yuklash, xavfsiz key/URL metadata va frontend file input oqimini qo‘shish
 - [ ] Yakuniy checkpoint URL-ni foydalanuvchiga yuborish
-- [ ] Evidence jadvaliga storage key maydonini qo‘shish, migratsiya qilish va upload natijasida key/url ni saqlash
+- [x] Evidence jadvaliga storage key maydonini qo‘shish, migratsiya qilish va upload natijasida key/url ni saqlash
 
 ## GitHub ulanishi
 

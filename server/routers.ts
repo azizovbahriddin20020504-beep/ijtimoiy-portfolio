@@ -40,7 +40,7 @@ export const appRouter = router({
       const buffer = Buffer.from(encoded, "base64");
       const safeName = input.fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
       const stored = await storagePut(`evidence/${ctx.user.id}/${Date.now()}-${safeName}`, buffer, input.mimeType);
-      await db.insert(evidence).values({ userId: ctx.user.id, title: input.title, type: input.type, url: stored.url });
+      await db.insert(evidence).values({ userId: ctx.user.id, title: input.title, type: input.type, url: stored.url, fileKey: stored.key });
       return { success: true, url: stored.url };
     }),
   }),
